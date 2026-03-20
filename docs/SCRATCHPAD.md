@@ -1,6 +1,15 @@
+<!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+
 # SCRATCHPAD - Runes of Tir na nÓg
 
 ## Active Issues & Debug Locations
+
+### Current Session (March 20, 2026)
+
+#### Project check and documentation refresh
+- **Code**: `assets/menu.html` referenced missing `landing.html`; **fix**: use `../index.html` for quit flow and username guard (matches `server.py` mapping `/` → `index.html`).
+- **Docs**: README, `SUMMARY.md`, `SBOM.md`, `CHANGELOG.md`, and this file updated for layout accuracy and cross-links.
+- **Status**: ✅ COMPLETE
 
 ### Current Session (January 27, 2025)
 
@@ -258,7 +267,7 @@ if (this.isMultiplayer) {
 
 ---
 
-**Last Updated**: January 27, 2025
+**Last Updated**: March 20, 2026
 **Session Focus**: Mobile & Multiplayer Enhancements
 **Status**: All active issues resolved
 **Next Steps**: Performance monitoring and user testing

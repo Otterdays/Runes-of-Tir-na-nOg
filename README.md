@@ -35,6 +35,24 @@ This is an enhanced prototype demonstrating advanced game development concepts:
 - ✅ **Multiplayer UI system** with username management
 - ✅ **Server connection interface** with status indicators
 
+## 📚 Documentation
+
+| Doc | Purpose |
+|-----|---------|
+| [SUMMARY.md](SUMMARY.md) | Project status, feature inventory, roadmap notes |
+| [CHANGELOG.md](CHANGELOG.md) | Version history |
+| [SBOM.md](SBOM.md) | Runtime stack and dependency/security notes |
+| [style_guide.md](style_guide.md) | UI theme and conventions |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System architecture (detailed) |
+| [docs/MULTIPLAYER_IMPLEMENTATION_PLAN.md](docs/MULTIPLAYER_IMPLEMENTATION_PLAN.md) | Multiplayer design notes |
+| [docs/SCRATCHPAD.md](docs/SCRATCHPAD.md) | Agent session log and debug pointers |
+
+## ▶️ Quick start
+
+1. From the repo root, run `python server.py` (serves HTTP on port 8000 and starts the local WebSocket helper from `legacy-server/` when available).
+2. Open `http://localhost:8000/` — you get `index.html` (username / landing).
+3. Continue to `assets/menu.html`, then `game.html` for the canvas session (or use in-menu navigation).
+
 ## 🚀 Features
 
 ### Core Gameplay
@@ -91,7 +109,7 @@ This is an enhanced prototype demonstrating advanced game development concepts:
 ### Combat & Actions
 | Key | Action |
 |-----|--------|
-| Space | Attack 🚧 |
+| Space | Attack ✅ |
 | Q | Block/Parry 🚧 |
 | X | Dodge roll 🚧 |
 | F | Use item 🚧 |
@@ -192,7 +210,7 @@ The game features a comprehensive settings menu with multiple categories:
 - **File Size**: Optimized modular components (~15KB total)
 - **Memory Usage**: < 10MB in browser with textures loaded
 - **CPU Usage**: Minimal (60 FPS target maintained)
-- **Network**: Zero external requests (all assets local)
+- **Network**: Game assets load from the app origin; HTML pages may load **Google Fonts** (Cinzel) for typography. Multiplayer uses **WebSockets** when enabled.
 - **Rendering**: Viewport culling for optimal performance
 - **Texture Loading**: Asynchronous with fallback systems
 
@@ -200,36 +218,43 @@ The game features a comprehensive settings menu with multiple categories:
 
 ### Architecture
 ```
-/RunesOfTirNaNog/
-├── landing.html        # Landing page with username modal
-├── index.html          # Main game page
+/ (repo root)
+├── index.html              # Landing: username modal, link into menu
+├── game.html               # Canvas game shell (single / multi), mobile controls, chat UI
+├── server.py               # Local HTTP + spawns legacy WebSocket server
 ├── assets/
-│   └── menu.html       # Main menu with multiplayer UI
+│   ├── menu.html           # Main menu, server status, world entry
+│   └── world-selection.html
 ├── core/
-│   ├── Game.js         # Main game coordinator
-│   ├── GameLoop.js     # 60 FPS game loop
-│   └── main.js         # Game initialization
+│   ├── Game.js             # Main coordinator
+│   ├── GameLoop.js         # 60 FPS loop
+│   ├── main.js             # Bootstrap
+│   ├── NetworkManager.js   # Multiplayer client
+│   └── SaveSystem.js       # Save/load helpers
 ├── ui/
-│   ├── UI.js           # UI management
-│   ├── HealthBar.js    # Health bar component
-│   ├── Inventory.js    # Inventory & equipment system
-│   └── PauseMenu.js    # Pause menu system
+│   ├── UI.js, HealthBar.js, Inventory.js, PauseMenu.js
+│   ├── SettingsPanel.js, VideoSettings.js, KeybindSettings.js, GameplaySettings.js
 ├── player/
-│   ├── Player.js       # Player character
-│   └── NameTag.js      # Player name display
+│   ├── Player.js
+│   └── NameTag.js
+├── npc/
+│   └── NPC.js              # Hostile NPCs (e.g. rats)
 ├── world/
-│   └── World.js        # World generation and rendering
+│   └── World.js
 ├── camera/
-│   └── Camera.js       # Camera system
+│   └── Camera.js
 ├── input/
-│   └── Input.js        # Input handling
+│   └── Input.js
 ├── audio/
-│   └── AudioManager.js # Audio system with water sounds
+│   └── AudioManager.js
 ├── utils/
-│   └── SecurityUtils.js # Username validation and security
-├── server.py           # Python server for multiplayer
-├── MULTIPLAYER_IMPLEMENTATION_PLAN.md # Multiplayer development plan
-└── README.md           # This file
+│   └── SecurityUtils.js
+├── legacy-server/
+│   ├── multiplayer_server.py
+│   └── requirements.txt    # websockets>=11.0.0
+├── docs/                   # Architecture, security reports, SCRATCHPAD, plans
+├── SUMMARY.md, SBOM.md, CHANGELOG.md, style_guide.md
+└── README.md               # This file
 ```
 
 ### Engine Components
@@ -309,7 +334,7 @@ The game features rare cave tiles scattered throughout the world:
 
 ## 🌐 Multiplayer System
 
-The game now features a complete multiplayer UI system ready for server integration:
+The client includes a full **multiplayer UI** plus a **WebSocket client** (`core/NetworkManager.js`) for real-time play when a compatible server is reachable. Local development can use `server.py` together with `legacy-server/multiplayer_server.py` (see `legacy-server/README.md`). Production endpoints may be allow-listed in page CSP (`connect-src`) where used.
 
 ### Username Management
 - **Secure Input**: Username validation with character restrictions
@@ -322,27 +347,24 @@ The game now features a complete multiplayer UI system ready for server integrat
 - **Error Handling**: Comprehensive error messages and retry functionality
 
 ### Menu Flow Integration
-- **Landing Page**: Username modal with validation before entering main menu
-- **Seamless Navigation**: Smooth transitions between all UI states
+- **Landing**: `index.html` username modal before entering main menu
+- **Seamless Navigation**: Smooth transitions between UI states
 - **Notification System**: Slide-in notifications for user feedback
 
-### Ready for Implementation
-- **WebSocket Ready**: UI prepared for real WebSocket connections (ws://localhost:1234)
-- **Player Management**: Username system ready for multiplayer sessions
-- **Status Tracking**: Visual indicators ready for server communication
+### Implemented client features
+- **WebSockets**: Connect flow and heartbeat-oriented handling in `NetworkManager.js`
+- **Chat**: In-world chat bubbles (see `game.html` ChatManager) when connected
+- **Multiplayer-aware pause**: Documented in `SUMMARY.md` / `docs/SCRATCHPAD.md`
 
 ## 🚀 Next Steps
 
-This enhanced prototype establishes a solid foundation. Future phases will add:
+High-value follow-ups (combat and core multiplayer client work are already in tree):
 
-1. **Multiplayer Server** - WebSocket server implementation for real-time multiplayer
-2. **Player Synchronization** - Network layer for position and state sync
-3. **Combat System** - Turn-based battles with health integration
-4. **Quest System** - Story and objectives with UI integration
-5. **Save System** - Progress persistence
-6. **More Textures** - Additional tile types and environment variety
-7. **NPCs** - Interactive characters with dialogue systems
-8. **Enemies** - AI-controlled opponents with pathfinding
+1. **Content** — Quests, dialogue NPCs, loot drops tied to inventory stats
+2. **Persistence** — Extend `SaveSystem.js` for full world / multiplayer state if needed
+3. **Polish** — Remaining keybind rows marked 🚧 in the tables above (block, dodge, map, etc.)
+4. **Server ops** — Hardening, monitoring, and deployment docs for your chosen host
+5. **Testing** — Automated checks for critical paths (input, network reconnect, save)
 
 ## 💡 Design Philosophy
 

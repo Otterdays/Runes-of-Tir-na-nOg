@@ -1,5 +1,11 @@
 # Runes of Tir na nÓg - Project Summary
 
+## Documentation sync — 2026-03-20
+
+- **Entry flow**: `server.py` serves `/` as `index.html` (username / landing). Main menu: `assets/menu.html`. Game session: `game.html`.
+- **Fix**: `assets/menu.html` linked to removed `landing.html` for quit and username redirect; now targets `index.html`.
+- **[AMENDED] Roadmap drift**: Older checklist items below that show combat as “Phase 2 / in progress” are stale. Combat, multiplayer client wiring, and related UI shipped in v2.0 — see `CHANGELOG.md` and README.
+
 ## 📋 Project Overview
 
 **Runes of Tir na nÓg** is an enhanced top-down RPG prototype built with vanilla JavaScript, featuring modular architecture, pixel art graphics, and comprehensive UI systems.
@@ -151,7 +157,7 @@
 - **Status**: ✅ COMPLETE - Custom world loading working perfectly
 
 #### 2. Multiplayer UI System (v1.0) 🌐
-- **Location**: `landing.html`, `assets/menu.html`
+- **Location**: `index.html` (landing / username), `assets/menu.html`
 - **Features**:
   - **Username Management**: Secure input with validation and localStorage persistence
   - **Server Connection UI**: Visual status indicators with animated connection states
@@ -345,7 +351,7 @@ getPlayerName()         // Get current player name
 - ✅ SUMMARY.md - This project overview
 - ✅ Inline code documentation
 - ✅ Testing instructions
-- ⏳ ARCHITECTURE.md - Detailed technical architecture (pending)
+- ✅ `docs/ARCHITECTURE.md` - Technical architecture (see `docs/` folder)
 - ⏳ API.md - Component API documentation (pending)
 
 ---
@@ -362,9 +368,9 @@ getPlayerName()         // Get current player name
 
 ---
 
-**Last Updated**: January 27, 2025
-**Version**: Enhanced Prototype v2.0
-**Status**: Complete combat system implemented with player/NPC attacks, health bars, floating damage numbers, and visual improvements!
+**Last Updated**: March 20, 2026
+**Version**: Enhanced Prototype v2.0+
+**Status**: Combat and multiplayer client features documented; menu landing links aligned with `index.html`.
 
 ## 📋 Documentation Status
 

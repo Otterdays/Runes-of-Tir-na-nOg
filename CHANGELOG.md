@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Fixed
+- **Main menu navigation**: `assets/menu.html` used missing `landing.html` for quit and username redirect; now uses `index.html`, matching `server.py` (`/` → `index.html`).
+
+### Changed
+- **Documentation**: README, `SUMMARY.md`, `SBOM.md`, and `docs/SCRATCHPAD.md` refreshed for current paths, features, and doc cross-links (2026-03-20).
+
 ## [v2.0] - 2025-01-27 - Combat System Complete
 
 ### Added

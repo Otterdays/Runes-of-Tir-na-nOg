@@ -3,7 +3,8 @@
 **Project:** Runes of Tir na nÓg - Enhanced RPG Prototype  
 **Version:** 2.0  
 **Generated:** January 27, 2025  
-**Security Notice:** This project uses zero external dependencies with comprehensive security measures
+**Last reviewed:** 2026-03-20 — Frontend still has zero npm packages; Python multiplayer deps listed from `legacy-server/requirements.txt`.  
+**Security Notice:** This project uses zero external JavaScript bundler dependencies; Python server deps are minimal.
 
 ## Core Technologies
 
@@ -37,7 +38,7 @@
 | Package | Version | Purpose | Security Risk |
 |---------|---------|---------|---------------|
 | Python 3.x | Latest | WebSocket server | Low - Well-maintained |
-| websockets | Latest | WebSocket handling | Low - Well-maintained |
+| websockets | >=11.0.0 (`legacy-server/requirements.txt`) | WebSocket handling | Low - Well-maintained |
 | asyncio | Built-in | Async operations | Low - Standard library |
 
 ## Asset Files
@@ -95,7 +96,10 @@
 | Rendering | Viewport culling | Optimal performance |
 
 ## License
+
 MIT
+
+[AMENDED 2026-03-20]: Use, modification, and distribution of this repository are restricted by the proprietary / viewing-only terms in `README.md`. The line above does not override those terms. The `websockets` PyPI package is licensed separately (see project metadata on PyPI).
 
 ## Maintenance Schedule
 - **Next SBOM Review:** Upon any dependency addition or major update
@@ -112,7 +116,7 @@ MIT
 
 ---
 
-**Last Updated:** January 27, 2025  
+**Last Updated:** March 20, 2026  
 **Maintainer:** Project Owner  
 **Contact:** motorcycler14@yahoo.com
 

@@ -17,7 +17,7 @@ You now have full control over whether Bob NPC spawns in your game! This is mana
 ### Accessing Settings
 
 1. **From Main Menu**:
-   - Open the game landing page (`game/landing.html`)
+   - Open the site root (`http://localhost:8000/` → `index.html`), then open the main menu (`assets/menu.html`)
    - Click the **⚙️ Settings** button
 
 2. **Navigate to Gameplay**:
@@ -180,8 +180,8 @@ Currently, this only affects Bob on/off. Once more NPCs are added (townies, merc
 
 ### Can't Find Settings Button
 
-**Location**: Main menu landing page  
-**Path**: `http://localhost:8000/game/landing.html`  
+**Location**: Main menu (`assets/menu.html`)  
+**Path**: `http://localhost:8000/assets/menu.html` (after username flow on `index.html`)  
 **Not available in-game** (no pause menu settings yet)
 
 ---
